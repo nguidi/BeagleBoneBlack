@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<script>
+	window.onload = function () {
+
+		var dpsX = []; // dataPointsX
+		var dpsY = []; // dataPointsY
+		var dpsZ = []; // dataPointsZ
+
+		var chart = new CanvasJS.Chart("chartContainer",{
+			title :{
+				text: "Acelerometro"
+			},			
+			data:
+			[
+			    {
+				    type: "line",
+				    dataPoints: dpsX,
+				    showInLegend: true,
+				    markerType: "none",
+				    name: "X"
+			    }
+			,   {
+				    type: "line",
+				    dataPoints: dpsY,
+				    showInLegend: true,
+				    markerType: "none",
+				    name: "Y"
+			    }
+			,   {
+				    type: "line",
+				    dataPoints: dpsZ,
+				    showInLegend: true,
+				    markerType: "none",
+				    name: "Z"
+			    }
+			]
+		});
+		
+		var time = 0
+
+        var dataLength = 100
+        
+        var zeroOffset  = 0 // 0.4584
+        var conversionFactor = 0.01 //0.0917
+
+		var updateChart = function (msg) {
+		    time = time + 20
+		    
+			dpsX
+			    .push(
+                    {
+                        y: (msg.x - zeroOffset)/conversionFactor
+                    ,   x: time
+                    }
+			    )
+			    
+			dpsY
+			    .push(
+                    {
+                        y: (msg.y - zeroOffset)/conversionFactor
+                    ,   x: time
+                    }
+			    )
+			    
+			dpsZ
+			    .push(
+                    {
+                        y: (msg.z - zeroOffset)/conversionFactor
+                    ,   x: time
+                    }
+			    )
+			    
+			if (dpsX.length > dataLength)
+			{
+				dpsX.shift();
+				dpsY.shift();
+				dpsZ.shift();
+			}
+			
+			chart.render();		
+
+		};
+        
+        var socket = io();
+    
+        function askValue(){
+            socket.emit('read',true) 
+        }
+    
+        setInterval(askValue,20)
+        
+        socket.on('send', function(msg){
+            updateChart(msg);
+        });
+
+	}
+	</script>
+</head>
+<body>
+	<div id="chartContainer" style="height: 300px; width:100%;">
+	</div>
+</body>
+</html>
