@@ -1,0 +1,62 @@
+body {
+	padding: 20px;
+}
+
+#window	{
+	border:		1px solid black; 
+	height:		273px;
+	width:		481px;
+}
+
+.top-panel, .main-content {
+	width:	480px;
+}
+
+.top-panel {
+	font-size:		16px;
+	height:			30px;
+	border-bottom:	1px solid black;
+	padding-right:	5px;
+	padding-left:	5px;
+}
+
+.top-panel .clock{
+	float:			left;
+	padding-top:	2px;
+}
+
+.top-panel img {
+	float:	right;
+}
+
+.main-content {
+	height:	241px;
+}
+
+.main-content .content-menu {
+	padding-left: 120px;
+	padding-top: 5px;
+}
+
+.main-content .content-menu .menu{
+	width:	240px;
+	height:	241px;
+}
+
+.main-content .content-content {
+	padding: 10px;
+}
+
+.btn {
+	font-size: 20px !important;
+}
+
+#gauge {
+	height:	140px;
+	width:	204px;
+}
+
+#timeline{
+	height:	140px;
+	width:	268px;
+}
