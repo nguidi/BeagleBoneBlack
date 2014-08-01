@@ -51,12 +51,17 @@ body {
 	font-size: 20px !important;
 }
 
-#gauge {
+#potentiometer-gauge {
 	height:	140px;
 	width:	204px;
 }
 
-#timeline{
+#potentiometer-line{
 	height:	140px;
 	width:	268px;
+}
+
+#accelerometer-line {
+	height:	140px;
+	width: 472px;
 }

@@ -1,0 +1,10 @@
+{
+	"name":		"BeagleBoneBlack-Server"
+,	"version":	"1.0.0"
+,	"dependencies":
+	{
+		"socket.io":	"latest"
+	,	"express":		"latest"
+	,	"bonescript":	"latest"
+	}
+}

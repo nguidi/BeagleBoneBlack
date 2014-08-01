@@ -4,6 +4,11 @@ can.Control(
 		defaults:
 		{
 			view:	'app/views/home.mustache'
+		,	refresh_rates:
+			{
+				arr:	20
+			,	prr:	200
+			}
 		}
 	}	
 ,	{
@@ -105,23 +110,48 @@ can.Control(
 						this.$content
 					)
 			,	{
-
+					refresh_rate:	this.options.refresh_rates.prr
 				}
 			)
 		}
 
 	,	'.app-accelerometer click': function()
 		{
-			this._render_content('Accelerometer')
-
 			this._toggle_content()
+			
+			new	Accelerometer(
+				can.$('<div>')
+					.appendTo(
+						this.$content
+					)
+			,	{
+					refresh_rate:	this.options.refresh_rates.arr
+				}
+			)
 		}
 
 	,	'.app-configuration click': function()
 		{
-			this._render_content('Configuration')
-
 			this._toggle_content()
+			
+			new	Configuration(
+				can.$('<div>')
+					.appendTo(
+						this.$content
+					)
+			,	{
+					refresh_rates:	this.options.refresh_rates
+				}
+			)
+		}
+
+	,	'app.update_refresh_rate': function(el,ev,refresh_rates)
+		{
+			this.options.refresh_rates = refresh_rates
+
+			this.$content.empty()
+
+			this._toggle_menu()
 		}
 
 	,	'.app-shutdown click': function()
